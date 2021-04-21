@@ -10,6 +10,14 @@ app.get('/', (req, res, next) => {
   next()
 })
 
+app.use('/accounts', require('./routes/accountsRoutes'))
+app.use(
+  '/accounts/:key/todos',
+  require('./middleware/getAccount'),
+  require('./routes/todosRoutes')
+)
+
+
 app.get('/todos', (req, res, next) => {
   models.todo.findAll().then((todos) => {
     res.locals.data = { todos }
@@ -18,12 +26,13 @@ app.get('/todos', (req, res, next) => {
 })
 
 app.use((req, res) => {
+  console.log(res);
   res.json(res.locals.data)
 })
 
 app.use((error, req, res, next) => {
-  if (res.headersSent) { next(err) }
-  res.status(500).json({ error })
+  if (res.headersSent) { next(error) }
+  res.status(500).json({ error: error.message })
 })
 
 app.listen(process.env.PORT || 3001, () => {
