@@ -22,4 +22,16 @@ todosController.update = (req, res, next) => {
   .catch((err) => { next(err) })
 }
 
+todosController.reset = (req, res, next) => {
+  models.todo.update({
+    completed: false
+  }, {
+    where: { accountId: req.account.id }
+  })
+  .then((updated) => {
+    res.json({ updated })
+  })
+  .catch((error) => next(error))
+}
+
 module.exports = todosController
