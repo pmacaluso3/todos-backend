@@ -3,6 +3,8 @@ const app = express()
 
 const models = require('./models')
 
+app.use(require('cors')())
+
 app.get('/', (req, res, next) => {
   res.locals.data = { message: 'ok' }
   next()
