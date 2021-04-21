@@ -4,6 +4,7 @@ const app = express()
 const models = require('./models')
 
 app.use(require('cors')())
+app.use(express.json())
 
 app.get('/', (req, res, next) => {
   res.locals.data = { message: 'ok' }
@@ -26,7 +27,6 @@ app.get('/todos', (req, res, next) => {
 })
 
 app.use((req, res) => {
-  console.log(res);
   res.json(res.locals.data)
 })
 
