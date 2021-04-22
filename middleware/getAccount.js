@@ -5,8 +5,12 @@ const getAccount = (req, res, next) => {
     where: { key: req.params.key }
   })
   .then((account) => {
-    req.account = account
-    next()
+    if (account) {
+      req.account = account
+      next()
+    } else {
+      next(new Error('Account not found'))
+    }
   })
   .catch((error) => { next(error) })
 }
