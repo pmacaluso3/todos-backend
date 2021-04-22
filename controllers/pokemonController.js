@@ -13,7 +13,8 @@ pokemonController.index = (req, res, next) => {
 
 pokemonController.create = (req, res, next) => {
   req.account.createPokemon({
-    externalId: req.body.externalId
+    externalId: req.body.externalId,
+    name: req.body.name,
   })
   .then((todo) => {
     res.locals.data = { todo }
