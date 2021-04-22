@@ -17,6 +17,11 @@ app.use(
   require('./middleware/getAccount'),
   require('./routes/todosRoutes')
 )
+app.use(
+  '/accounts/:key/pokemon',
+  require('./middleware/getAccount'),
+  require('./routes/pokemonRoutes')
+)
 
 
 app.get('/todos', (req, res, next) => {

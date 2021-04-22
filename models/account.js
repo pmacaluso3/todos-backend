@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       models.account.hasMany(models.todo)
+      models.account.hasMany(models.pokemon)
     }
   };
   account.init({
