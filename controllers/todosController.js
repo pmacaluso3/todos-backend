@@ -11,6 +11,18 @@ todosController.index = (req, res, next) => {
   .catch((error) => { next(error) })
 }
 
+todosController.create = (req, res, next) => {
+  req.account.createTodo({
+    description: req.body.description,
+    completed: false
+  })
+  .then((todo) => {
+    res.locals.data = { todo }
+    next()
+  })
+  .catch((error) => { next(err) })
+}
+
 todosController.update = (req, res, next) => {
   req.account.getTodos({ where: { id: req.params.id }})
   .then((todos) => {
